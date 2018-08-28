@@ -331,14 +331,14 @@ namespace VideoToYoutube
             string connectionString = ConfigurationManager.AppSettings["SQLConn"];
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string temp = "ManufacturerPartNumber = '" + ManPartNum[0]+ "'";
+                string temp = "PartNum = '" + ManPartNum[0]+ "'";
 
                 foreach(var num in ManPartNum)
                 {
-                    temp += " OR ManufacturerPartNumber = '" + num + "'";
+                    temp += " OR PartNum = '" + num + "'";
                 }
 
-                SqlCommand command = new SqlCommand("SELECT ManufacturerPartNumber, WebTitle, IntID, Keywords, MetaDesc FROM goods fs " +
+                SqlCommand command = new SqlCommand("SELECT PartNum, WebTitle, IntID, Keywords, MetaDesc FROM goods fs " +
                         "inner join supplier ps on ps.ProductID = fs.IntID " +
                         $"WHERE ps.SupplierID = 111 and fs.Status in (0, 3) and ({temp})", conn);
 
@@ -350,7 +350,7 @@ namespace VideoToYoutube
                 {
                     VideoDetails VD = new VideoDetails()
                     {
-                        PartNum = read["ManufacturerPartNumber"].ToString().Trim(),
+                        PartNum = read["PartNum"].ToString().Trim(),
                         WebTitle = read["WebTitle"].ToString().Trim(),
                         SKU = (int)read["IntID"],
                         Keywords = read["Keywords"].ToString().Trim(),
