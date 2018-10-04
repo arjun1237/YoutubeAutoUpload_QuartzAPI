@@ -338,8 +338,8 @@ namespace VideoToYoutube
                     temp += " OR PartNum = '" + num + "'";
                 }
 
-                SqlCommand command = new SqlCommand("SELECT PartNum, WebTitle, IntID, Keywords, MetaDesc FROM goods fs " +
-                        "inner join supplier ps on ps.ProductID = fs.IntID " +
+                SqlCommand command = new SqlCommand("SELECT * FROM goods fs " +
+                        "inner join supplier ps on ps.ProductID = fs.ID " +
                         $"WHERE ps.SupplierID = 111 and fs.Status in (0, 3) and ({temp})", conn);
 
                 conn.Open();
@@ -350,11 +350,11 @@ namespace VideoToYoutube
                 {
                     VideoDetails VD = new VideoDetails()
                     {
-                        PartNum = read["PartNum"].ToString().Trim(),
-                        WebTitle = read["WebTitle"].ToString().Trim(),
-                        SKU = (int)read["IntID"],
-                        Keywords = read["Keywords"].ToString().Trim(),
-                        vidDesc = read["MetaDesc"].ToString().Trim(),
+                        PartNum = read["Num"].ToString().Trim(),
+                        WebTitle = read["Title"].ToString().Trim(),
+                        SKU = (int)read["ID"],
+                        Keywords = read["Key"].ToString().Trim(),
+                        vidDesc = read["Desc"].ToString().Trim(),
                     };
 
                     VidDetails.Add(VD);
@@ -506,34 +506,5 @@ namespace VideoToYoutube
                 }
             }
         }
-    }
-
-    internal class PlayList
-    {
-        public string name { get; set; }
-        public string ID { get; set; }
-    }
-
-    internal class Videos
-    {
-        public string name { get; set; }
-        public string ID { get; set; }
-    }
-
-    internal class VideoDetails
-    {
-        public string PartNum { get; set; }
-        public string WebTitle { get; set; }
-        public int SKU { get; set; }
-        public string Keywords { get; set; }
-        public string vidDesc { get; set; }
-    }
-
-    [BsonIgnoreExtraElements]
-    internal class Product_Videos
-    {
-        public int sku { get; set; }
-        public string VideoObjectString { get; set; }
-        public string Thumbnail { get; set; }
     }
 }
