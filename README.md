@@ -1,2 +1,3 @@
-# YoutubeAutoVideoUpload
-uploading videos onto youtube automatically
+# YoutubeAutoUpload
+
+Simple application to handle multiple uploads onto youtube automatically.
